@@ -1,0 +1,36 @@
+/* frontend/src/Profile.css */
+.profile-container {
+  max-width: 500px;
+  margin: auto;
+  padding: 2rem;
+  background: #111;
+  color: #eee;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+.upload-btn {
+  margin-top: 1rem;
+  background: #444;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+.upload-btn:hover {
+  background: #666;
+}
+
+.profile-details {
+  margin-top: 2rem;
+}
