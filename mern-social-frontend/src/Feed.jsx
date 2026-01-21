@@ -82,7 +82,7 @@ function Feed({ isDarkMode, setIsDarkMode }) {
   const toggleShare = async (id) => {
     try {
       await api.patch(`/posts/share/${id}`);
-      navigator.clipboard.writeText(`http://localhost:3000/post/${id}`);
+      navigator.clipboard.writeText(`${window.location.origin}/post/${id}`);
       alert('Post link copied to clipboard!');
       loadPosts();
     } catch (err) {
@@ -112,6 +112,13 @@ function Feed({ isDarkMode, setIsDarkMode }) {
     likes?.some((like) =>
       typeof like === 'object' ? like._id === userId : like === userId
     );
+
+  // Helper to get full media URL
+  const getMediaUrl = (mediaPath) => {
+    if (!mediaPath) return '';
+    const baseUrl = process.env.REACT_APP_API_URL?.replace('/api', '') || 'https://social-media-platform-2-lce7.onrender.com';
+    return `${baseUrl}/${mediaPath}`;
+  };
 
   return (
     <div className="feed">
@@ -160,9 +167,9 @@ function Feed({ isDarkMode, setIsDarkMode }) {
           <div className="post-media">
             {post.media && (
               post.media.endsWith('.mp4') ? (
-                <video controls width="100%" src={`http://localhost:5000/${post.media}`} />
+                <video controls width="100%" src={getMediaUrl(post.media)} />
               ) : (
-                <img src={`http://localhost:5000/${post.media}`} alt="post" className="post-image" />
+                <img src={getMediaUrl(post.media)} alt="post" className="post-image" />
               )
             )}
           </div>

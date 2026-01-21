@@ -8,10 +8,17 @@ function UserProfile() {
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
 
+  const getMediaUrl = (mediaPath) => {
+    if (!mediaPath) return '';
+    const baseUrl =
+      process.env.REACT_APP_API_URL?.replace('/api','') || 
+      'https://social-media-platform-2-lce7.onrender.com';
+    return `${baseUrl}/${mediaPath}`;
+  };
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-      
         const userRes = await api.get(`/users/${id}`);
         setUser(userRes.data);
 
@@ -32,7 +39,7 @@ function UserProfile() {
         <div className="profile-image-wrapper">
           {user.profilePic || user.profileImage ? (
             <img
-              src={`http://localhost:5000/${user.profilePic || user.profileImage}`}
+              src={getMediaUrl(user.profilePic || user.profileImage)}
               alt="Profile"
               className="profile-image"
             />
@@ -63,12 +70,12 @@ function UserProfile() {
                 <div className="post-media">
                   {post.media?.endsWith('.mp4') ? (
                     <video controls>
-                      <source src={`http://localhost:5000/${post.media}`} type="video/mp4" />
+                      <source src={getMediaUrl(post.media)} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
                     <img
-                      src={`http://localhost:5000/${post.media}`}
+                      src={getMediaUrl(post.media)}
                       alt="Post"
                     />
                   )}

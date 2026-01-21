@@ -11,6 +11,9 @@ import Profile from './Pages/Profile';
 import About from './Pages/About';
 import UserProfile from './Pages/UserProfile';
 import './App.css';
+import ReportDashboard from "./Pages/ReportDashboard";
+
+
 
 function App() {
 
@@ -35,6 +38,7 @@ function App() {
                 <>
                   <Link to="/profile">Profile</Link>
                   <Link to="/createpost">Create Post</Link>
+                  <Link to="/report-dashboard">Report Dashboard</Link> {/* ✅ New Link */}
                   <button onClick={logout}>Logout</button>
                 </>
               ) : (
@@ -83,10 +87,22 @@ function App() {
             }
           />
           <Route path="/about" element={<About />} />
+
+          {/* ✅ New Route for Report Dashboard */}
+          <Route
+            path="/report-dashboard"
+            element={
+              <AuthContext.Consumer>
+                {({ user }) => (user ? <ReportDashboard /> : <Navigate to="/login" />)}
+              </AuthContext.Consumer>
+            }
+          />
+
           <Route path="*" element={<Navigate to="/feed" />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
+  
   );
 }
 
